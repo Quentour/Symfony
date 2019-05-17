@@ -86,7 +86,7 @@ class BlogController extends AbstractController
      */
     public function showByCategory(string $categoryName)
     {
-
+/*
         $category = $this->getDoctrine()
         ->getRepository(Category::class)
         ->findOneBy(['name' => $categoryName]);
@@ -100,5 +100,19 @@ class BlogController extends AbstractController
                     'articles' => $article,
                     'categoryName' => $categoryName
             ]);
-    }
+*/
+        $category = $this->getDoctrine()
+        ->getRepository(Category::class)
+        ->findOneBy(['name' => $categoryName]);
+        $articles =$category->getArticles();
+
+        return $this->render(
+            'blog/showByName.html.twig',
+            [
+                    'categories' => $articles,
+
+            ]);
+        
+        
+        }
 }

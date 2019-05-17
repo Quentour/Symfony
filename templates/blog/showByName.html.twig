@@ -5,10 +5,10 @@
 
 {% block body %}
     <h1>All articles from article s table : </h1>
-    {% for article in articles %}
+    {% for category in categories %}
         <div>
-            <h2>{{ article.id }} / {{ article.title }} - Category : {{ article.category.name }}</h2>
-            <p>{{ article.content }}</p>
+            <h2>{{ category.id }} / {{ category.title }} - Category : {{ category.category.name }}</h2>
+            <p>{{ category.content }}</p>
         </div>
     {% else %}
         Aucun article trouvé.
