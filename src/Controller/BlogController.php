@@ -79,32 +79,18 @@ class BlogController extends AbstractController
      *
      * @param string $slug The slugger
      *
-     * @Route("/blog/category/{categoryName}",
+     * @Route("/blog/category/{name}",
      *     defaults={"slug" = null},
      *     name="show_category")
      *  @return Response A response instance
      */
-    public function showByCategory(string $categoryName)
+    public function showByCategory(Category $categoryName): Response
     {
-/*
-        $category = $this->getDoctrine()
-        ->getRepository(Category::class)
-        ->findOneBy(['name' => $categoryName]);
 
-        $article = $this->getDoctrine()
-        ->getRepository(Article::class)
-        ->findBy(['category' => $category],["id" => "desc"],3);
-        return $this->render(
-            'blog/showByName.html.twig',
-            [
-                    'articles' => $article,
-                    'categoryName' => $categoryName
-            ]);
-*/
-        $category = $this->getDoctrine()
+/*        $category = $this->getDoctrine()
         ->getRepository(Category::class)
         ->findOneBy(['name' => $categoryName]);
-        $articles =$category->getArticles();
+*/        $articles =$categoryName->getArticles();
 
         return $this->render(
             'blog/showByName.html.twig',
@@ -114,5 +100,5 @@ class BlogController extends AbstractController
             ]);
         
         
-        }
+    }
 }
