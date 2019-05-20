@@ -5,9 +5,13 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Form\ArticleSearchType;
+use App\Form\CategoryType;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class BlogController extends AbstractController
 {
@@ -25,14 +29,21 @@ class BlogController extends AbstractController
              'No article found in article\'s table.'
              );
          }
-   
+         
+         $form = $this->createForm(
+            ArticleSearchType::class,
+            null,
+            ['method' => Request::METHOD_GET]
+        );
+
          return $this->render(
                  'blog/index.html.twig',
-                 ['articles' => $articles]
+                 ['articles' => $articles,
+                 'form' => $form->createView()]
          );
    }
     
-        /**
+     /**
      * Getting a article with a formatted slug for title
      *
      * @param string $slug The slugger
@@ -100,5 +111,31 @@ class BlogController extends AbstractController
             ]);
         
         
+    }
+
+     /**
+     * @Route("/add",
+     *     name="add_category")
+     */
+
+    public function AddCategory(Request $request,ObjectManager $manager)
+    {
+        $category = new Category();
+        $form = $this->createForm(CategoryType::class, $category);
+        
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) 
+        {
+           $data = $form->getData();
+           $manager->persist($data);
+           $manager->flush();
+        }
+
+        return $this->render(
+            'blog/crud.html.twig', 
+            ['form' => $form->createView()]
+
+        );
     }
 }
