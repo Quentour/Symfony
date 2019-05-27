@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Article;
+use App\Entity\Tag;
 use App\Entity\Category;
 use App\Form\ArticleSearchType;
 use App\Form\CategoryType;
@@ -136,6 +137,17 @@ class BlogController extends AbstractController
             'blog/crud.html.twig', 
             ['form' => $form->createView()]
 
+        );
+    }
+    /**
+    * @Route("/blog/tag/{name}", name="show_tag")
+    */
+    public function showTag(Tag $tag): Response
+    {
+        $articles = $tag->getArticles();
+        return $this->render(
+            'blog/tag.html.twig',
+            ['articles' => $articles]
         );
     }
 }

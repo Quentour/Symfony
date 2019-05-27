@@ -12,8 +12,8 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', null, ['choice_label' => 'name'])
-            ->add('content', null, ['choice_label' => 'name'])
+            ->add('title')
+            ->add('content')
             ->add('category', null, ['choice_label' => 'name'])
         ;
     }
