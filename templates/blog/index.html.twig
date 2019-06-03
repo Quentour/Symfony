@@ -5,24 +5,21 @@
 
 {% block body %}
 
-
-{{ form_start(form) }}
-    {{ form_row(form.searchField) }}
-    <button type="submit" name="btnSearch">Rechercher</button>
-{{ form_end(form) }}
-
+<div class="container">
 
     <h1>All articles from article s table : </h1>
+    <ul>
     {% for article in articles %}
-        <div>
+        <li>
             <h2>{{ loop.index }} / {{ article.title }} - Category : {{ article.category.name }}</h2>
             <p>{{ article.content }}</p>
-        </div>
+        </li>
     {% else %}
-        Aucun article trouvé.
+        <li>Aucun article trouvé.</li>
     {% endfor %}
+    </ul>
     <a href="{{ path('app_index') }}">
       Back to homepage.
     </a>
-
+</div>
 {% endblock %}
