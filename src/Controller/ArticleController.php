@@ -41,9 +41,8 @@ class ArticleController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
             $message = (new \Swift_Message('Un nouvel article vient d\'être publié !'))
-            ->setFrom('quentour69100@gmail.com')
             ->setTo('quentour69100@gmail.com')
-            ->setBody($this->renderView('article/email/notification.html.twig', ['article' => $article]));
+            ->setBody($this->renderView('article/email/notification.html.twig', ['article' => $article]), 'text/html');
         $mailer->send($message);
             return $this->redirectToRoute('article_index');
         }
