@@ -9,18 +9,26 @@
     </head>
     <body>
 <nav class="navbar navbar-expand-lg navbar-bg-dark bg-dark">
+  <div class="row">
   <a class="navbar-brand" href="{{ path('blog_index') }}">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="{{ path('blog_index') }}">Home</a>
-      </li>
-    </ul>
+  <ul>
+{% if app.user %}
+    
+    <li>
+    Bonjour {{ app.user.username }} !
+    <a href="{{ path('app_logout') }}"> <button class="btn btn-outline-primary">Se déconnecter</button></a>
+    </li>
+{% else %}
+    <li>
+    <a href="{{ path('app_login') }}"><button class="btn btn-outline-secondary">Se connecter</button></a>
+    </li>
+{% endif %}
+    <li>
+    <a href="{{ path('article_index') }}"><button class="btn btn-outline-primary">article</button></a>
+    </li>
+  </ul>
   </div>
+
 </nav>        {% block body %}{% endblock %}
         {% block javascripts %}
         {{ encore_entry_script_tags('app') }}{% endblock %}
