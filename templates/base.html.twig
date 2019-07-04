@@ -7,8 +7,8 @@
         {{ encore_entry_link_tags('app') }}
         {% endblock %}
     </head>
-    <body>
-<nav class="navbar navbar-expand-lg navbar-bg-dark bg-dark">
+    <body id="body">
+<nav class="navbar navbar-expand-lg navbar-bg-dark" id="nav">
   <div class="row">
   <a class="navbar-brand" href="{{ path('blog_index') }}">Navbar</a>
   <ul>
@@ -26,11 +26,52 @@
     <li>
     <a href="{{ path('article_index') }}"><button class="btn btn-outline-primary">article</button></a>
     </li>
+    <li>
+    <button class="btn btn-outline-primary" onclick="init()">PARTY</button>
+    </li>
   </ul>
   </div>
 
 </nav>        {% block body %}{% endblock %}
         {% block javascripts %}
         {{ encore_entry_script_tags('app') }}{% endblock %}
+
+
+<script>
+
+i = 0
+var colors = ["red","blue","yellow","purple","white"]
+var background = document.getElementById("body")
+var nav = document.getElementById("nav")
+var c = document.getElementById("nav").children
+var audio = new Audio('vengaboys.mp3');
+
+function init()
+{
+    audio.play();
+    setInterval(changeColor,455);
+}
+
+
+function changeColor()
+{
+    console.log(i)
+    nav.style.backgroundColor = colors[i+1]
+    background.style.backgroundColor = colors[i]
+
+    c[0].style.color = colors[i]
+    background.style.color = colors[i+1]
+    if (i<3)
+    {
+        i += 1
+    }
+    else
+    {
+        i = 0
+    }
+}
+</script>
+
+
     </body>
 </html>

@@ -13,6 +13,7 @@ use App\Entity\Category;
 use App\Form\ArticleSearchType;
 use App\Form\CategoryType;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class BlogController extends AbstractController
 {
@@ -110,6 +111,8 @@ class BlogController extends AbstractController
     }
 
      /**
+     * @IsGranted("ROLE_ADMIN")
+     *
      * @Route("/add",
      *     name="add_category")
      */
